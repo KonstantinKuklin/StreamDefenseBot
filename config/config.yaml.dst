@@ -1,0 +1,38 @@
+# Should be renamed to config.yaml
+
+bot_parameters:
+      # false - no loggin. set to DEBUG to save all information to log.txt
+      log_level: false
+      log_file: log.txt
+game:
+      channel: "#archonthewizard"
+      ttdbot: ttdbot
+bots:
+      -
+        # twitch login
+        login: TwitchBotNickName
+        # oauth password should be got on https://twitchapps.com/tmi/
+        password: oauth:pass
+        # When bot owner use command: $init the bot will start the game with this class
+        class: archer
+        # the bot's owner nick name
+        owner_nick: TwitchOwnerNickName
+        # all commands to that group bot will execute
+        group: test
+        # if true bot will $init his class on 1 wave
+        auto_start: false
+        # if true bot will send map vote !map[rand from 0 to 9]
+        map_vote: false
+        # for true all commands will be send to TTDBot, false - to channel
+        prefer_whisper: true
+
+      # add another bot:
+      -
+        login: TwitchBotNickName2
+        password: oauth:pass2
+        class: archer
+        owner_nick: TwitchOwnerNickName
+        group: test
+        auto_start: false
+        map_vote: false
+        prefer_whisper: true

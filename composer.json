@@ -1,0 +1,36 @@
+{
+    "name": "konstantin-kuklin/stream-defense-bot",
+    "authors": [
+        {
+            "name": "Konstantin Kuklin",
+            "email": "konstantin.kuklin@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "KonstantinKuklin\\StreamDefenseBot\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KonstantinKuklin\\StreamDefenseBot\\Test\\": "test/"
+        }
+    },
+    "require": {
+        "php": "^7.1.3",
+        "phergie/phergie-irc-client-react": "^3.3",
+        "symfony/event-dispatcher": "^4.0",
+        "symfony/yaml": "^4.0",
+        "symfony/console": "^4.0",
+        "padraic/phar-updater": "^1.0",
+        "symfony/lock": "^4.0"
+    },
+    "require-dev": {
+        "symfony/process": "^4.0",
+        "seld/phar-utils": "^1.0",
+        "symfony/finder": "^4.0",
+        "justinrainbow/json-schema": "^5.2",
+        "composer/composer": "^1.6",
+        "phpunit/phpunit": "^7.0"
+    }
+}

@@ -1,0 +1,21 @@
+language: php
+
+sudo: false
+
+matrix:
+    include:
+        - php: 7.1
+        - php: 7.2
+
+    fast_finish: true
+
+before_install:
+  - composer self-update
+
+install:
+  - composer install
+
+script:
+    - ./vendor/bin/phpunit
+    - ./bin/compile
+
