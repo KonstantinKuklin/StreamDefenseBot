@@ -32,6 +32,8 @@ class Application
     use LoggerTrait;
     use IOTrait;
     use ScreenRenderTrait;
+
+    /** @var BotParameters */
     private $botParameters;
 
     protected function loadConfig()
@@ -50,6 +52,7 @@ class Application
         $botParameters = new BotParameters();
         $botParameters->logFile = $configList['bot_parameters']['log_file'];
         $botParameters->logLevel = $configList['bot_parameters']['log_level'];
+        $botParameters->pingTimeout = $configList['bot_parameters']['ping_timeout'];
         $this->botParameters = $botParameters;
 
         return $configList;
@@ -64,7 +67,7 @@ class Application
             return $botConfig['login'];
         }, $botList);
 
-        $this->initTickPinger($botNames);
+        $this->initTickPinger($botNames, $this->botParameters->pingTimeout);
         $this->initReactClient();
         $this->initScreenRender($this->output);
         $this->initEventListener();
@@ -80,5 +83,10 @@ class Application
         $this->initIO($input, $output);
         $this->init();
         $this->reactClient->run($this->connectionList);
+    }
+
+    public function getBotParameters() : BotParameters
+    {
+        return $this->botParameters;
     }
 }

@@ -12,4 +12,6 @@ class BotParameters
     public $logLevel;
 
     public $logFile;
+
+    public $pingTimeout;
 }

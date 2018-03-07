@@ -38,8 +38,6 @@ Bot knows about 4 message types:
 - message from anybody else (always will be ignored)
 - special messages from TTDbot
 
-Bot send ping to game each 240 seconds if you are AFK and bot do nothing in that time.
-
 ## Owner
 You can't become a bot owner except by config.yml.
 You have additional bot command which are always starts from special char `$`:

@@ -34,7 +34,7 @@ abstract class AbstractGetMessageEvents extends TestCase
         $botNames = array_map(function ($botConfig) {
             return $botConfig['login'];
         }, [$connectionConfig]);
-        $this->initTickPinger($botNames);
+        $this->initTickPinger($botNames, 0);
         $this->initEventListener();
         $connectionConfigInstance = \array_pop($this->connectionList);
 

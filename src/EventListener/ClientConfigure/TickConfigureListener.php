@@ -30,7 +30,6 @@ class TickConfigureListener
         $client = $clientConfigureEvent->getClient();
         $tickPinger = $clientConfigureEvent->getApplication()->getTickPinger();
         $channel = $clientConfigureEvent->getApplication()->getGameConfig()->getChannel();
-
         $client->setTickInterval(30);
 
         $callback = function (WriteStream $write, ConnectionConfig $connection, LoggerInterface $logger) use ($tickPinger, $channel) {

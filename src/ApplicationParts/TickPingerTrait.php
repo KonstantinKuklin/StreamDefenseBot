@@ -16,9 +16,9 @@ trait TickPingerTrait
     /**
      * @param string[] $nickNameList
      */
-    protected function initTickPinger(array $nickNameList)
+    protected function initTickPinger(array $nickNameList, $timeout)
     {
-        $this->tickPinger = new TickPinger($nickNameList);
+        $this->tickPinger = new TickPinger($nickNameList, $timeout);
     }
 
     public function getTickPinger() : TickPinger

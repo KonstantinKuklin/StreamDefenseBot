@@ -9,12 +9,13 @@ namespace KonstantinKuklin\StreamDefenseBot;
 
 class TickPinger
 {
-    const TIMEOUT = 240;
-
     private $nickNameLastUpdate = [];
 
-    public function __construct(array $nickNameList)
+    private $timeout;
+
+    public function __construct(array $nickNameList, $timeout = null)
     {
+        $this->timeout = $timeout;
         foreach ($nickNameList as $nickName) {
             $this->nickNameLastUpdate[$this->getNormalizedNickName($nickName)] = time();
         }
@@ -27,7 +28,11 @@ class TickPinger
 
     public function isTimeOuted($nick)
     {
-        return time() - $this->nickNameLastUpdate[$this->getNormalizedNickName($nick)] >= self::TIMEOUT;
+        if (!$this->timeout) {
+            return false;
+        }
+
+        return time() - $this->nickNameLastUpdate[$this->getNormalizedNickName($nick)] >= $this->timeout;
     }
 
     private function getNormalizedNickName($nickName)
