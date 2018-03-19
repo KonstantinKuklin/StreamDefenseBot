@@ -36,7 +36,7 @@ class StatsRequesterConfigureListener
                 return;
             }
 
-            if (!$connection->getBotStatus()->class) {
+            if (!$connection->getBotStatus()->isInGame) {
                 // not in game
                 return;
             }

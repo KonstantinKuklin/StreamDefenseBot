@@ -21,6 +21,9 @@ class GameCommandMap
     const FILL = '!fill';
     const ALTAR = '!altar';
     const ALTAR_SHORT = '!a';
+
+    const SPECS = '!specs';
+
     const ARCHER = '!archer';
     const ROGUE = '!rogue';
     const FIREMAGE = '!firemage';
@@ -28,6 +31,14 @@ class GameCommandMap
     const ALCHEMIST = '!alchemist';
     const BARD = '!bard';
     const LEAVE = '!leave';
+    const HIGHPRIEST = '!highpriest';
+
+    const SOCKET_CITRINE = '!socketcitrine';
+    const SOCKET_RUBY = '!socketruby';
+    const SOCKET_ONYX = '!socketonyx';
+    const SOCKET_EMERALD = '!socketemerald';
+
+    const TARGET_INFO = '!tarinfo';
 
     const HIRE_SHADE = '!hireshade';
     const HIRE_ICELO = '!hireicelo';
@@ -39,7 +50,7 @@ class GameCommandMap
     const HIRE_CORTEZ = '!hirecortez';
 
     const MERC_FOLLOW = '!mfollow';
-    const MERC_UNFOLLOW = '!mfollow';
+    const MERC_UNFOLLOW = '!munfollow';
 
     const MERC_TRAIN_SHORT = '!mt';
     const MERC_TRAIN = '!mtrain';

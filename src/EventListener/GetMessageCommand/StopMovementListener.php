@@ -12,7 +12,7 @@ use KonstantinKuklin\StreamDefenseBot\Service\GameCommandMap;
 use KonstantinKuklin\StreamDefenseBot\Service\LogRecord;
 use KonstantinKuklin\StreamDefenseBot\Service\ScreenRenderInjectTrait;
 
-class InitListener
+class StopMovementListener
 {
     use ScreenRenderInjectTrait;
 
@@ -25,7 +25,7 @@ class InitListener
             return;
         }
 
-        if (!isset($message->botCommandList[0]) || (isset($message->botCommandList[0]) && $message->botCommandList[0] !== '$init')) {
+        if (!isset($message->botCommandList[0]) || (isset($message->botCommandList[0]) && $message->botCommandList[0] !== '$stopmovements')) {
             return;
         }
         // message for concrete bot
@@ -38,16 +38,12 @@ class InitListener
             return;
         }
 
-        $command = $botStatus->classInited ? '!' . \ltrim($botStatus->classInited, '!') : GameCommandMap::BARD;
+        $botStatus->isMovementsAllowed = false;
         $this->screenRender->addLogRecord(new LogRecord(
             $botStatus->nick,
             $event->getMessage(),
-            'init',
-            $command
+            'stop movements',
+            'disable movements'
         ));
-
-        $botStatus->isInGame = true;
-        $botStatus->isLeft = false;
-        $event->setTextToWrite($command);
     }
 }

@@ -31,12 +31,17 @@ class StatsListener
             return;
         }
 
-        $stats = $this->parseMessage($message);
+        $botStatus = $event->getConnection()->getBotStatus();
+        $stats = $this->parseStatsMessage($message);
         if (!$stats) {
+            if ($this->parseNotInGame($message)) {
+                $botStatus->isInGame = false;
+            }
+
             return;
         }
 
-        $botStatus = $event->getConnection()->getBotStatus();
+        $botStatus->isInGame = true;
         foreach (BotStatus::GAME_STATS as $stat) {
             if (isset($stats[$stat])) {
                 $botStatus->$stat = $stats[$stat];
@@ -53,7 +58,7 @@ class StatsListener
         ));
     }
 
-    private function parseMessage($message)
+    private function parseStatsMessage($message)
     {
         $patternList = [
             'Lvl (?P<lvl>\d+) (?P<class>\w+)',
@@ -85,5 +90,13 @@ class StatsListener
         }
 
         return $return;
+    }
+
+    private function parseNotInGame($message)
+    {
+        $matches = [];
+        \preg_match('/You must join the game/ui', $message, $matches);
+
+        return count($matches) !== 0;
     }
 }

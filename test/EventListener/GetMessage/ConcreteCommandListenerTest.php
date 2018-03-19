@@ -129,6 +129,37 @@ class ConcreteCommandListenerTest extends AbstractGetMessageEvents
                     ],
                 ],
             ],
+            'leader: change target priority' => [
+                'connectionData' => [
+                    'login' => 'bot1',
+                    'class' => GameCommandMap::ARCHER,
+                    'owner_nick' => 'owner',
+                    'group' => 'test',
+                    'auto_start' => false,
+                    'password' => '',
+                    'follow_to' => 'leader',
+                ],
+                'messages to check' => [
+                    [
+                        'input_message' => ['leader', '@bot1 !tarp+b'],
+                        'expected_message' => '!tarp+b',
+                        'bot_stats_before' => [],
+                        'bot_stats_after' => [],
+                    ],
+                    [
+                        'input_message' => ['leader', '@bot1 !tarp=b,s'],
+                        'expected_message' => '!tarp=b,s',
+                        'bot_stats_before' => [],
+                        'bot_stats_after' => [],
+                    ],
+                    [
+                        'input_message' => ['leader', '@bot1 !tar=b,s'],
+                        'expected_message' => '!tar=b,s',
+                        'bot_stats_before' => [],
+                        'bot_stats_after' => [],
+                    ],
+                ],
+            ],
             'leader: leave to bot' => [
                 'connectionData' => [
                     'login' => 'bot1',

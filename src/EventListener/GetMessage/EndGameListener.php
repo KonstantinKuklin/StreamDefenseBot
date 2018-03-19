@@ -42,6 +42,7 @@ class EndGameListener
 
             $botStatus = $connection->getBotStatus();
             $botStatus->class = null;
+            $botStatus->isInGame = false;
             $botStatus->location = 'Map vote';
             $botStatus->lvl = 0;
             $botStatus->damage = null;

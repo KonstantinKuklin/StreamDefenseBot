@@ -33,19 +33,27 @@ class TickConfigureListener
         $client->setTickInterval(30);
 
         $callback = function (WriteStream $write, ConnectionConfig $connection, LoggerInterface $logger) use ($tickPinger, $channel) {
-            $timeOuted = $tickPinger->isTimeOuted($connection->getNickname());
-            $class = $connection->getBotStatus()->class;
-            if ($class && $timeOuted) {
-                $write->ircPrivmsg($channel, '!');
-                $tickPinger->update($connection->getNickname());
+            $botStatus = $connection->getBotStatus();
 
-                $this->screenRender->addLogRecord(new LogRecord(
-                    $connection->getBotStatus()->nick,
-                    new Message(),
-                    'AKF timer',
-                    'send !'
-                ));
+            if (!$botStatus->isInGame || $botStatus->isLeft) {
+                // need to skip pings
+                return;
             }
+
+            if (!$tickPinger->isTimeOuted($connection->getNickname())) {
+                // not yet time outed
+                return;
+            }
+
+            $write->ircPrivmsg($channel, '! !m');
+            $tickPinger->update($connection->getNickname());
+
+            $this->screenRender->addLogRecord(new LogRecord(
+                $connection->getBotStatus()->nick,
+                new Message(),
+                'AKF timer',
+                'send !'
+            ));
         };
 
         $client->on('irc.tick', $callback);

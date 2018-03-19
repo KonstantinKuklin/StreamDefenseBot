@@ -36,6 +36,9 @@ class BotStatus
         $group,
         $isMapVoteAllowed = false,
         $preferWhisper = false,
+        $isInGame = false,
+        $isMovementsAllowed = true,
+        $isLeft = false,
 
         $lvl,
         $class,

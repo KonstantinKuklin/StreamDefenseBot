@@ -16,6 +16,8 @@ class Message
 
     public $gameCommandList = [];
 
+    public $gameCommandTar;
+
     public $botCommandList = [];
 
     public $commandForNick;

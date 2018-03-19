@@ -28,6 +28,9 @@ class MyParser extends Parser
         if (!$parsedNew) {
             $parsedNew = $this->parseUserState($parsed['invalid']);
         }
+        if (!$parsedNew) {
+            $parsedNew = $this->parseClearChat($parsed['invalid']);
+        }
 
         if (isset($parsed['tail']) && $parsedNew) {
             $parsedNew['tail'] = $parsed['tail'];
@@ -62,4 +65,18 @@ class MyParser extends Parser
 
         return $matches ?: null;
     }
+
+    private function parseClearChat($message)
+    {
+        $matches = [];
+        \preg_match('/CLEARCHAT (?P<channel>\#[^ $]+) :(?P<sender>[^;]+)/ui', $message, $matches);
+        if ($matches) {
+            $matches['command'] = 'CLEARCHAT';
+            $matches['message'] = \sprintf(':%s!:', \rtrim($matches['sender'], '!'));
+        }
+
+        return $matches ?: null;
+    }
+
+
 }

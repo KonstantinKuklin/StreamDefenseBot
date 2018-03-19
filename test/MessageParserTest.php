@@ -25,6 +25,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => 'ololo inda house',
                     'text' => 'ololo inda house',
+                    'gameCommandTar' => null,
                 ],
             ],
             'text to somebody' => [
@@ -39,6 +40,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => '@nick2 ololo inda house',
                     'text' => '@nick2 ololo inda house',
+                    'gameCommandTar' => null,
                 ],
             ],
             'unknown command' => [
@@ -53,6 +55,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => true,
                     'message' => '!command',
                     'text' => '!command',
+                    'gameCommandTar' => null,
                 ],
             ],
             'two unknown command' => [
@@ -67,6 +70,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => true,
                     'message' => '!command !fly',
                     'text' => '!command !fly',
+                    'gameCommandTar' => null,
                 ],
             ],
             'command' => [
@@ -81,6 +85,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => true,
                     'message' => '!t',
                     'text' => '!t',
+                    'gameCommandTar' => null,
                 ],
             ],
             'three command' => [
@@ -95,6 +100,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => true,
                     'message' => '!t !p !bard',
                     'text' => '!t !p !bard',
+                    'gameCommandTar' => null,
                 ],
             ],
             'command for person' => [
@@ -109,6 +115,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => '@bot !t',
                     'text' => '@bot !t',
+                    'gameCommandTar' => null,
                 ],
             ],
             'two command for person' => [
@@ -123,6 +130,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => '@bot !t !p',
                     'text' => '@bot !t !p',
+                    'gameCommandTar' => null,
                 ],
             ],
             'one known command and one unknown' => [
@@ -137,6 +145,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => '@bot !hello !t',
                     'text' => '@bot !hello !t',
+                    'gameCommandTar' => null,
                 ],
             ],
             'group command' => [
@@ -151,6 +160,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => 'test!t',
                     'text' => 'test!t',
+                    'gameCommandTar' => null,
                 ],
             ],
             'two group command' => [
@@ -165,6 +175,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => 'test!t !p',
                     'text' => 'test!t !p',
+                    'gameCommandTar' => null,
                 ],
             ],
             'bot command' => [
@@ -179,6 +190,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => '$init',
                     'text' => '$init',
+                    'gameCommandTar' => null,
                 ],
             ],
             'bot two command' => [
@@ -193,6 +205,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => '$init $remove',
                     'text' => '$init $remove',
+                    'gameCommandTar' => null,
                 ],
             ],
             'bot command for bot' => [
@@ -207,6 +220,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => '@bot $init',
                     'text' => '@bot $init',
+                    'gameCommandTar' => null,
                 ],
             ],
             'two bot command for bot' => [
@@ -221,6 +235,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => '@bot $init $remove',
                     'text' => '@bot $init $remove',
+                    'gameCommandTar' => null,
                 ],
             ],
             'bot command for group' => [
@@ -235,6 +250,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => 'test$init',
                     'text' => 'test$init',
+                    'gameCommandTar' => null,
                 ],
             ],
             'two bot command for group' => [
@@ -249,6 +265,7 @@ class MessageParserTest extends \PHPUnit\Framework\TestCase
                     'isCommandForGame' => false,
                     'message' => 'test$init $remove',
                     'text' => 'test$init $remove',
+                    'gameCommandTar' => null,
                 ],
             ],
         ];

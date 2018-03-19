@@ -15,14 +15,18 @@ use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\ChangeLocationLis
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\ClassChangeListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\EndGameListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\LastActivityListener;
+use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\LeaveListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\PowerChangeListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\RepeatCommandListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\ConcreteCommandListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\StartGameListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\StatsListener;
+use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\TargetPriorityListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\VoteMapListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessageCommand\FollowListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessageCommand\InitListener;
+use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessageCommand\StartMovementListener;
+use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessageCommand\StopMovementListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\PrepareMessage\WrongCommandListener;
 use KonstantinKuklin\StreamDefenseBot\Service\ScreenRender;
 use KonstantinKuklin\StreamDefenseBot\TickPinger;
@@ -38,7 +42,11 @@ trait DispatcherTrait
         // should hear all messages
         $this->dispatcher->addListener('message.get', [new FollowListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new InitListener(), 'handle']);
+        $this->dispatcher->addListener('message.get', [new StartMovementListener(), 'handle']);
+        $this->dispatcher->addListener('message.get', [new StopMovementListener(), 'handle']);
 
+        $this->dispatcher->addListener('message.get', [new TargetPriorityListener(), 'handle']);
+        $this->dispatcher->addListener('message.get', [new LeaveListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new ChangeLocationListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new ClassChangeListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new PowerChangeListener(), 'handle']);
@@ -65,6 +73,7 @@ trait DispatcherTrait
         $this->dispatcher->addListener('message.write', [new ChangeLocationListener(), 'handle']);
         $this->dispatcher->addListener('message.write', [new ClassChangeListener(), 'handle']);
         $this->dispatcher->addListener('message.write', [new PowerChangeListener(), 'handle']);
+        $this->dispatcher->addListener('message.write', [new LeaveListener(), 'handle']);
     }
 
     private function initClientConfigure()

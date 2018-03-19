@@ -38,32 +38,37 @@ class ConcreteCommandListener
             }
         }
 
+        if ($message->gameCommandTar) {
+            $gameCommandLits[] = $message->gameCommandTar;
+        }
+
         if (!$gameCommandLits) {
             return;
         }
 
         // for group
         if ($message->commandForGroup === $botStatus->group) {
-            $event->setTextToWrite(\implode(' ', $message->gameCommandList));
+            $event->setTextToWrite(\implode(' ', $gameCommandLits));
 
             $this->screenRender->addLogRecord(new LogRecord(
                 $event->getConnection()->getBotStatus()->nick,
                 $message,
                 'group command',
-                \implode(' ', $message->gameCommandList)
+                \implode(' ', $gameCommandLits)
             ));
+
             return;
         }
 
         // for this bot
         if ($message->commandForNick === $botStatus->nick) {
-            $event->setTextToWrite(\implode(' ', $message->gameCommandList));
+            $event->setTextToWrite(\implode(' ', $gameCommandLits));
 
             $this->screenRender->addLogRecord(new LogRecord(
                 $event->getConnection()->getBotStatus()->nick,
                 $message,
                 'bot command',
-                \implode(' ', $message->gameCommandList)
+                \implode(' ', $gameCommandLits)
             ));
 
             return;

@@ -36,13 +36,18 @@ class RepeatCommandListener
             return;
         }
 
-        $allowedToRepeatCommand = \array_intersect($event->getMessage()->gameCommandList, GameCommandMap::ALLOWED_TO_REPEAT_MAP);
-        if (!$allowedToRepeatCommand) {
+        $allowedToRepeatCommandList = \array_intersect($event->getMessage()->gameCommandList, GameCommandMap::ALLOWED_TO_REPEAT_MAP);
+        if (!$allowedToRepeatCommandList) {
             return;
         }
         if ($author !== $botStatus->ownerNick) {
             // Leave allowed just for owner
-            $allowedToRepeatCommand = \array_diff($allowedToRepeatCommand, [GameCommandMap::LEAVE]);
+            $allowedToRepeatCommandList = \array_diff($allowedToRepeatCommandList, [GameCommandMap::LEAVE]);
+        }
+
+        if (!$botStatus->isMovementsAllowed) {
+            // movements are not allowed
+            $allowedToRepeatCommandList = \array_diff($allowedToRepeatCommandList, GameCommandMap::CHANGE_LOCATION_MAP);
         }
 
         $whisperPrefix = '';
@@ -50,7 +55,7 @@ class RepeatCommandListener
             $whisperPrefix = '/w ttdbot ';
         }
 
-        $command = $whisperPrefix . \implode(' ', $allowedToRepeatCommand);
+        $command = $whisperPrefix . \implode(' ', $allowedToRepeatCommandList);
         // repeat allowed commands here
         $event->setTextToWrite($command);
 

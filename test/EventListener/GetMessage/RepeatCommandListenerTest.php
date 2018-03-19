@@ -205,6 +205,43 @@ class RepeatCommandListenerTest extends AbstractGetMessageEvents
                     ],
                 ],
             ],
+            'owner-leader: move to altar after stop movements' => [
+                'connectionData' => [
+                    'login' => 'bot1',
+                    'class' => GameCommandMap::ARCHER,
+                    'owner_nick' => 'owner',
+                    'group' => 'test',
+                    'auto_start' => false,
+                    'password' => '',
+                    'follow_to' => 'leader',
+                ],
+                'messages to check' => [
+                    [
+                        'input_message' => ['owner', '$stopmovements'],
+                        'expected_message' => null,
+                        'bot_stats_before' => ['isMovementsAllowed' => true],
+                        'bot_stats_after' => ['isMovementsAllowed' => false],
+                    ],
+                    [
+                        'input_message' => ['leader', GameCommandMap::ALTAR],
+                        'expected_message' => null,
+                        'bot_stats_before' => [],
+                        'bot_stats_after' => [],
+                    ],
+                    [
+                        'input_message' => ['leader', GameCommandMap::POWER_UP],
+                        'expected_message' => GameCommandMap::POWER_UP,
+                        'bot_stats_before' => [],
+                        'bot_stats_after' => [],
+                    ],
+                    [
+                        'input_message' => ['owner', '$startmovements'],
+                        'expected_message' => null,
+                        'bot_stats_before' => ['isMovementsAllowed' => false],
+                        'bot_stats_after' => ['isMovementsAllowed' => true],
+                    ],
+                ],
+            ],
             'leader: leave' => [
                 'connectionData' => [
                     'login' => 'bot1',

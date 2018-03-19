@@ -12,7 +12,7 @@ use KonstantinKuklin\StreamDefenseBot\Service\GameCommandMap;
 use KonstantinKuklin\StreamDefenseBot\Service\LogRecord;
 use KonstantinKuklin\StreamDefenseBot\Service\ScreenRenderInjectTrait;
 
-class PowerChangeListener
+class LeaveListener
 {
     use ScreenRenderInjectTrait;
 
@@ -29,30 +29,11 @@ class PowerChangeListener
         }
 
         $commandList = $message->gameCommandList;
-        $classCommandList = \array_intersect($commandList, [GameCommandMap::POWER_UP, GameCommandMap::POWER_DOWN]);
+        $classCommandList = \array_intersect($commandList, [GameCommandMap::LEAVE]);
         if (!$classCommandList) {
             return;
         }
 
-        $lastCommand = \array_pop($classCommandList);
-        if ($lastCommand === GameCommandMap::POWER_UP) {
-            $botStatus->powerUp = 'On';
-
-            $this->screenRender->addLogRecord(new LogRecord(
-                $botStatus->nick,
-                $message,
-                'power up',
-                ''
-            ));
-        } else {
-            $botStatus->powerUp = null;
-
-            $this->screenRender->addLogRecord(new LogRecord(
-                $botStatus->nick,
-                $message,
-                'power down',
-                ''
-            ));
-        }
+        $botStatus->isLeft = true;
     }
 }

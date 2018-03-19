@@ -54,6 +54,11 @@ class MessageParser
         $message->nick = $message->author = $author;
         $message->message = $message->text = $text;
 
+        $matchesTar = [];
+        \preg_match('/(?P<tar>!tarp?[+-=][\w,-]+)/ui', $message->text, $matchesTar);
+        if (isset($matchesTar['tar']) && $matchesTar['tar']) {
+            $message->gameCommandTar = $matchesTar['tar'];
+        }
 
         return $message;
     }

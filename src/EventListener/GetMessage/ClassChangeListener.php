@@ -36,6 +36,7 @@ class ClassChangeListener
 
         $class = \ucfirst(trim(\array_pop($classCommandList), '!'));
         $botStatus->class = $class;
+        $botStatus->isInGame = true;
 
         $this->screenRender->addLogRecord(new LogRecord(
             $event->getConnection()->getBotStatus()->nick,
