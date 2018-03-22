@@ -10,8 +10,10 @@ if (!is_numeric($ts)) {
 }
 // Install with the current version to force it having the right ClassLoader version
 // Install without dev packages to clean up the included classmap from phpunit classes
-shell_exec('composer install -q');
-shell_exec('composer config autoloader-suffix --unset');
+if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    shell_exec('composer install -q');
+    shell_exec('composer config autoloader-suffix --unset');
+}
 chdir($cwd);
 
 require __DIR__ . '/../vendor/autoload.php';
