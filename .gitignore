@@ -2,4 +2,6 @@ composer.phar
 /vendor/
 config/config.yaml
 sdbot.phar
+sdbot-old.phar
+version.php
 log.txt

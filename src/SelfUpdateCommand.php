@@ -6,6 +6,7 @@
 
 namespace KonstantinKuklin\StreamDefenseBot;
 
+use Humbug\SelfUpdate\Strategy\GithubStrategy;
 use Humbug\SelfUpdate\Strategy\ShaStrategy;
 use Humbug\SelfUpdate\Updater;
 use Humbug\SelfUpdate\VersionParser;
@@ -114,7 +115,7 @@ class SelfUpdateCommand extends Command
     protected function getStableUpdater()
     {
         $updater = new Updater(null, false);
-        $updater->setStrategy(Updater::STRATEGY_GITHUB);
+        $updater->setStrategyObject(new GithubBlobStrategy());
 
         return $this->getGithubReleasesUpdater($updater);
     }
@@ -131,11 +132,12 @@ class SelfUpdateCommand extends Command
     protected function getDevelopmentUpdater()
     {
         $updater = new Updater(null, false);
-        $updater->setStrategy(Updater::STRATEGY_GITHUB);
+        $updater->setStrategyObject(new GithubBlobStrategy());
 
         $updater->getStrategy()->setPackageName(self::PACKAGE_NAME);
         $updater->getStrategy()->setPharName(self::FILE_NAME);
-        $updater->getStrategy()->setStability('any');
+        $updater->getStrategy()->setStability(GithubStrategy::ANY);
+        $updater->getStrategy()->setCurrentLocalVersion($this->version);
 
         return $updater;
     }

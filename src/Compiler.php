@@ -71,6 +71,11 @@ class Compiler
             ->name('*.php')
             ->notName('Compiler.php')
             ->notName('ClassLoader.php')
+            ->exclude('phpunit')
+            ->exclude('phpdocumentor')
+            ->exclude('code-unit-reverse-lookup')
+            ->exclude('doctrine')
+            ->exclude('sebastian')
             ->in(__DIR__.'/..')
             ->sort($finderSort)
         ;
@@ -78,7 +83,7 @@ class Compiler
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
         }
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../bin/bot'), false);
+//        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../bin/bot'), false);
 
         $finder = new Finder();
         $finder->files()
@@ -104,6 +109,11 @@ class Compiler
         $this->addFile($phar, new \SplFileInfo(__DIR__.'/../vendor/composer/autoload_files.php'));
         $this->addFile($phar, new \SplFileInfo(__DIR__.'/../vendor/composer/autoload_real.php'));
         $this->addFile($phar, new \SplFileInfo(__DIR__.'/../vendor/composer/autoload_static.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../vendor/composer/composer/res/composer-repository-schema.json'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../vendor/composer/composer/res/composer-schema.json'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../vendor/composer/installed.json'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../composer.json'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../composer.lock'));
         if (file_exists(__DIR__.'/../vendor/composer/include_paths.php')) {
             $this->addFile($phar, new \SplFileInfo(__DIR__.'/../vendor/composer/include_paths.php'));
         }
@@ -224,7 +234,7 @@ EOF;
         }
 
         return $stub . <<<'EOF'
-require 'phar://sdbot.phar/StreamDefenseBot/bin/bot';
+require 'phar://sdbot.phar/StreamDefenseBot/bin/bot.php';
 
 __HALT_COMPILER();
 EOF;
