@@ -34,7 +34,7 @@ class ConcreteCommandListenerTest extends AbstractGetMessageEvents
                     ],
                 ],
             ],
-            'owner: move to bot' => [
+            'owner: power up to bot' => [
                 'connectionData' => [
                     'login' => 'bot1',
                     'class' => GameCommandMap::ARCHER,
@@ -203,15 +203,34 @@ class ConcreteCommandListenerTest extends AbstractGetMessageEvents
                     'login' => 'bot1',
                     'class' => GameCommandMap::ARCHER,
                     'owner_nick' => 'owner',
-                    'group' => 'test',
+                    'group' => 'd',
                     'auto_start' => false,
                     'password' => '',
                     'follow_to' => 'leader',
                 ],
                 'messages to check' => [
                     [
-                        'input_message' => ['leader', 'test!t'],
+                        'input_message' => ['leader', 'd!t'],
                         'expected_message' => '!t',
+                        'bot_stats_before' => [],
+                        'bot_stats_after' => [],
+                    ],
+                ],
+            ],
+            'leader: change class and move for bot' => [
+                'connectionData' => [
+                    'login' => 'bot1',
+                    'class' => GameCommandMap::ARCHER,
+                    'owner_nick' => 'owner',
+                    'group' => 'd',
+                    'auto_start' => false,
+                    'password' => '',
+                    'follow_to' => 'leader',
+                ],
+                'messages to check' => [
+                    [
+                        'input_message' => ['leader', '!archer !2 d!bard d!3'],
+                        'expected_message' => '!bard !3',
                         'bot_stats_before' => [],
                         'bot_stats_after' => [],
                     ],

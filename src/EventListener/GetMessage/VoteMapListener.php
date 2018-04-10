@@ -17,8 +17,8 @@ class VoteMapListener
      */
     public function handle(MessageEvent $event)
     {
-        $message = $event->getMessage()->message;
-        $messageAuthor = $event->getMessage()->nick;
+        $message = $event->getMessage()->text;
+        $messageAuthor = $event->getMessage()->author;
         $connection = $event->getConnection();
         $ttdBotNick = 'ttdbot';
         $mapVoteLast = (int)$connection->getOption('map_vote_last');

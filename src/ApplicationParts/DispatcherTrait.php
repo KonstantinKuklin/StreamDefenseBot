@@ -14,11 +14,13 @@ use KonstantinKuklin\StreamDefenseBot\EventListener\ClientConfigure\AfterConnect
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\ChangeLocationListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\ClassChangeListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\EndGameListener;
+use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\IgnoreMessageListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\LastActivityListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\LeaveListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\PowerChangeListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\RepeatCommandListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\ConcreteCommandListener;
+use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\SpecsListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\StartGameListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\StatsListener;
 use KonstantinKuklin\StreamDefenseBot\EventListener\GetMessage\TargetPriorityListener;
@@ -44,6 +46,7 @@ trait DispatcherTrait
         $this->dispatcher->addListener('message.get', [new InitListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new StartMovementListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new StopMovementListener(), 'handle']);
+        $this->dispatcher->addListener('message.get', [new IgnoreMessageListener(), 'handle']);
 
         $this->dispatcher->addListener('message.get', [new TargetPriorityListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new LeaveListener(), 'handle']);
@@ -51,6 +54,7 @@ trait DispatcherTrait
         $this->dispatcher->addListener('message.get', [new ClassChangeListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new PowerChangeListener(), 'handle']);
         $this->dispatcher->addListener('message.get', [new StatsListener(), 'handle']);
+        $this->dispatcher->addListener('message.get', [new SpecsListener(), 'handle']);
 
         $this->dispatcher->addListener('message.get', [new LastActivityListener($this->getTickPinger()), 'handle']);
         $this->dispatcher->addListener('message.get', [new EndGameListener(), 'handle']);

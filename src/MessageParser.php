@@ -51,13 +51,18 @@ class MessageParser
             $message->isCommandForGame = true;
         }
 
-        $message->nick = $message->author = $author;
-        $message->message = $message->text = $text;
+        $message->author = $author;
+        $message->text = $text;
 
         $matchesTar = [];
         \preg_match('/(?P<tar>!tarp?[+-=][\w,-]+)/ui', $message->text, $matchesTar);
         if (isset($matchesTar['tar']) && $matchesTar['tar']) {
             $message->gameCommandTar = $matchesTar['tar'];
+        }
+
+
+        if (\strpos($text, ' xx') !== false) {
+            $message->hasIgnoreAttribute = true;
         }
 
         return $message;
@@ -105,14 +110,25 @@ class MessageParser
     private static function getGameCommand(string $text)
     {
         $matches = [];
-        \preg_match('/(?P<for_group>^[\w][^\$!]+)(?P<command>![\w !]+)/ui', $text, $matches);
+        \preg_match_all('/( |^)(?P<for_group>[a-zA-Z]*[^\$!])(?P<command>![\w][^ !$]*)/ui', $text, $matches);
         $message = new Message();
         try {
-            if ($matches) {
-                $message->commandForGroup = $matches['for_group'];
-                $message->gameCommandList = GameCommandMap::getCommandListFromMessage($matches['command']);
+            if (isset($matches['for_group'])) {
+                $groupCommandsAsText = [];
+                foreach ($matches['for_group'] as $position => $group) {
+                    if (!isset($groupCommandsAsText[$group])) {
+                        $groupCommandsAsText[$group] = '';
+                    }
+                    $groupCommandsAsText[$group] .= $matches['command'][$position] . ' ';
+                }
 
-                return $message;
+                foreach ($groupCommandsAsText as $group => $commandListText) {
+                    $commandList = GameCommandMap::getCommandListFromMessage($commandListText);
+                    if (!$commandList) {
+                        continue;
+                    }
+                    $message->commandForGroup[$group] = $commandList;
+                }
             }
 
             $matches = [];
@@ -125,10 +141,14 @@ class MessageParser
             }
 
             $matches = [];
-            \preg_match('/^(?P<command>![\w !]+)/ui', $text, $matches);
-            if ($matches) {
-                $message->gameCommandList = GameCommandMap::getCommandListFromMessage($matches['command']);
+            \preg_match_all('/( |^)(?P<command>![a-zA-Z\d]+)/ui', $text, $matches);
+            if (isset($matches['command']) && $matches['command']) {
+                $message->gameCommandList = GameCommandMap::getCommandListFromMessage(\implode(' ', $matches['command']));
 
+                return $message;
+            }
+
+            if ($message->commandForGroup) {
                 return $message;
             }
         } catch (\Exception $e) {

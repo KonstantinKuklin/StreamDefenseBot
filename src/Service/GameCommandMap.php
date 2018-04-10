@@ -23,6 +23,7 @@ class GameCommandMap
     const ALTAR_SHORT = '!a';
 
     const SPECS = '!specs';
+    const HIGHSCORES = '!highscores';
 
     const ARCHER = '!archer';
     const ROGUE = '!rogue';
@@ -73,6 +74,27 @@ class GameCommandMap
     const MERC_TOWER11 = '!m11';
     const MERC_TOWER12 = '!m12';
 
+    const SPEC_BOWMAN = '!specbowman';
+    const SPEC_SNIPER= '!specsniper';
+    const SPEC_FALCONEER = '!specfalconeer';
+    const SPEC_KNIFETHROWER = '!specknifethrower';
+    const SPEC_ASSASIN = '!specassassin';
+    const SPEC_NINJA= '!specninja';
+    const SPEC_PYROMANCER = '!specpyromancer';
+    const SPEC_BOMBERMAGE = '!specbombermage';
+    const SPEC_LIGHTNINMAGE = '!speclightningmage';
+    const SPEC_ICEMAGE = '!specicemage';
+    const SPEC_TRICKSTER = '!spectrickster';
+    const SPEC_STORMMAGE = '!specstormmage';
+    const SPEC_SHOCKMAGE = '!specshockmage';
+    const SPEC_PLAGUEDOCTOR = '!specplaguedoctor';
+    const SPEC_DEATHDEALER = '!specdeathdealer';
+    const SPEC_NECROMANCER = '!specnecromancer';
+    const SPEC_POTIONMASTER = '!specpotionmaster';
+    const SPEC_MINSTREL = '!specminstrel';
+    const SPEC_MIMIC = '!specmimic';
+    const SPEC_SCOUT = '!specscout';
+
     const TOWER1 = '!1';
     const TOWER2 = '!2';
     const TOWER3 = '!3';
@@ -94,6 +116,7 @@ class GameCommandMap
     const MAP7 = '!map7';
     const MAP8 = '!map8';
     const MAP9 = '!map9';
+
     const CLASS_MAP = [
         self::ARCHER,
         self::ROGUE,
@@ -145,6 +168,7 @@ class GameCommandMap
         self::FILL,
         self::PING,
         self::LEAVE,
+        self::SPECS,
     ];
 
     const CAN_BE_WHISPERED = [
@@ -175,6 +199,8 @@ class GameCommandMap
         self::POWER_UP,
         self::POWER_DOWN,
         self::PING,
+        self::SPECS,
+        self::HIGHSCORES,
     ];
 
     private static $allVariants;

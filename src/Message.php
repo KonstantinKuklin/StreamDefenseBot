@@ -9,9 +9,6 @@ namespace KonstantinKuklin\StreamDefenseBot;
 
 class Message
 {
-    /** @deprecated  Use author */
-    public $nick;
-
     public $author;
 
     public $gameCommandList = [];
@@ -22,12 +19,10 @@ class Message
 
     public $commandForNick;
 
-    public $commandForGroup;
+    public $commandForGroup = [];
 
     public $isCommandForGame = false;
-
-    /** @deprecated use text */
-    public $message = '';
+    public $hasIgnoreAttribute = false;
 
     public $text = '';
 }

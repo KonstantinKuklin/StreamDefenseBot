@@ -15,8 +15,8 @@ class TargetPriorityListener
      */
     public function handle(MessageEvent $event)
     {
-        $message = $event->getMessage()->message;
-        $messageAuthor = $event->getMessage()->nick;
+        $message = $event->getMessage()->text;
+        $messageAuthor = $event->getMessage()->author;
 
         if ($messageAuthor !== 'ttdbot') {
             return;

@@ -67,6 +67,10 @@ class ReceiverListener
                 return;
             }
 
+            if ($messageGetEvent->shouldIgnoreWrite()) {
+                return;
+            }
+
             // update stats like this message will come from IRC server
             $messageToWrite = new Message();
             $messageToWrite->author = $connection->getBotStatus()->nick;
@@ -77,7 +81,7 @@ class ReceiverListener
             $messageWriteEvent = new MessageWriteEvent($messageToWrite, $connection);
             $this->dispatcher->dispatch('message.write', $messageWriteEvent);
 
-            if($messageParsed->author === $connection->getBotStatus()->nick) {
+            if ($messageParsed->author === $connection->getBotStatus()->nick) {
                 // need to sleep 1 second or the message will be banned
                 sleep(1);
             }

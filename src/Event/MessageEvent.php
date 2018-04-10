@@ -20,10 +20,13 @@ class MessageEvent extends Event
 
     private $textToWrite;
 
+    private $ignoreWrite = false;
+
     /**
      * @var ConnectionConfig
      */
     private $connection;
+
     private $trace;
 
     public function __construct(Message $message, ConnectionConfig $connection)
@@ -72,5 +75,18 @@ class MessageEvent extends Event
     public function getTextToWrite()
     {
         return $this->textToWrite;
+    }
+
+    public function ignoreWrite()
+    {
+        $this->ignoreWrite = true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldIgnoreWrite()
+    {
+        return $this->ignoreWrite;
     }
 }

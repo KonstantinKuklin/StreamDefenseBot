@@ -61,6 +61,9 @@ abstract class AbstractGetMessageEvents extends TestCase
             );
 
             $textToWrite = $getMessageEvent->getTextToWrite();
+            if ($getMessageEvent->shouldIgnoreWrite()) {
+                $textToWrite = null;
+            }
 
             if (\array_key_exists('expected_message', $messageBehaviorCheck)) {
                 if (!\is_array($messageBehaviorCheck['expected_message'])) {
